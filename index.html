@@ -1,125 +1,127 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Məzuniyyət Formu</title>
+
+  <!-- Pikaday CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
+
   <style>
     body {
+      font-family: Arial, sans-serif;
       background-color: #f2f2f2;
-      font-family: "Segoe UI", sans-serif;
-      padding: 40px;
+      margin: 0;
+      padding: 50px 0;
     }
-    .container {
+
+    .form-container {
+      background-color: white;
       max-width: 500px;
       margin: auto;
-      background: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
       padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     }
+
     h2 {
-      color: #ed1c24;
       text-align: center;
+      color: #222;
+      margin-bottom: 25px;
     }
+
     label {
+      font-weight: bold;
       display: block;
-      margin-top: 20px;
-      font-weight: 600;
-      color: #333;
+      margin-top: 15px;
+      margin-bottom: 5px;
     }
+
     input[type="text"],
-    input[type="submit"] {
+    input[type="date"] {
       width: 100%;
       padding: 10px;
-      margin-top: 8px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
       font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-sizing: border-box;
     }
+
     input[type="submit"] {
-      background-color: #ed1c24;
-      color: #fff;
+      margin-top: 20px;
+      width: 100%;
+      background-color: #e30613;
+      color: white;
+      padding: 12px;
+      font-size: 16px;
       border: none;
-      margin-top: 30px;
+      border-radius: 6px;
       cursor: pointer;
     }
+
     input[type="submit"]:hover {
-      background-color: #c4141a;
+      background-color: #c4000f;
     }
-    .hidden { display: none; }
-    .thankyou-container {
+
+    .thankyou {
       text-align: center;
-      padding: 30px;
-    }
-    .thankyou-container h2 {
-      color: #ed1c24;
+      font-size: 18px;
+      color: green;
     }
   </style>
 </head>
 <body>
 
-<div class="container" id="formSection">
-  <h2>Məzuniyyət Məlumatları</h2>
-  <form action="https://formsubmit.co/orkhangadirli@gmail.com" method="POST">
-    <input type="hidden" name="_redirect" value="https://orkhangadirli.github.io/mezuniyyet-formu/#thanks">
-    <input type="hidden" name="_captcha" value="false">
-    <input type="text" name="_honey" style="display:none">
+  <div class="form-container" id="formContainer">
+    <h2>Məzuniyyət Məlumatları</h2>
+    <form action="https://formsubmit.co/orkhangadirli@gmail.com" method="POST">
+      <!-- FormSubmit ayarları -->
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_redirect" value="https://orkhangadirli.github.io/mezuniyyet-formu/index.html#thanks">
+      <input type="text" name="_honey" style="display:none">
 
-    <label>Ad Soyad:</label>
-    <input type="text" name="Ad Soyad" required>
+      <label for="adsoyad">Ad Soyad:</label>
+      <input type="text" name="Ad Soyad" id="adsoyad" required>
 
-    <label>Başlama tarixi:</label>
-    <input type="text" id="startDate" name="Başlama tarixi" required readonly>
+      <label for="startDate">Başlama tarixi:</label>
+      <input type="text" id="startDate" name="Başlama tarixi" required>
 
-    <label>Bitmə tarixi:</label>
-    <input type="text" id="endDate" name="Bitmə tarixi" required readonly>
+      <label for="endDate">Bitmə tarixi:</label>
+      <input type="text" id="endDate" name="Bitmə tarixi" required>
 
-    <input type="submit" value="Göndər">
-  </form>
-</div>
+      <input type="submit" value="Göndər">
+    </form>
+  </div>
 
-<!-- TƏŞƏKKÜR MESAJI -->
-<div class="thankyou-container hidden" id="thankyouSection">
-  <h2>✔ Təşəkkür edirik!</h2>
-  <p>Məlumatınız uğurla göndərildi.</p>
-  <p>Sizinlə WhatsApp üzərindən tezliklə əlaqə saxlanılacaq.</p>
-</div>
+  <!-- Təşəkkür hissəsi -->
+  <div class="form-container thankyou" id="thankYou" style="display:none;">
+    <h2>Təşəkkür edirəm!</h2>
+    <p>Təşəkkür edirəm. WhatsApp üzərindən geri dönüş edəcəm.</p>
+    <p><a href="index.html">Geri qayıt</a></p>
+  </div>
 
-<!-- Pikaday JS -->
-<script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
-<script>
-  const azLocale = {
-    previousMonth : 'Əvvəlki',
-    nextMonth     : 'Növbəti',
-    months        : ['Yanvar','Fevral','Mart','Aprel','May','İyun','İyul','Avqust','Sentyabr','Oktyabr','Noyabr','Dekabr'],
-    weekdays      : ['Bazar', 'B.e', 'Ç.a', 'Çərşənbə', 'C.a', 'Cümə', 'Şənbə'],
-    weekdaysShort : ['Bz', 'Be', 'Ça', 'Çə', 'Ca', 'Cü', 'Şə']
-  };
+  <!-- Pikaday JS -->
+  <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+  <script>
+    // Təqvimlər
+    new Pikaday({
+      field: document.getElementById('startDate'),
+      format: 'DD.MM.YYYY',
+      theme: 'light'
+    });
 
-  const startPicker = new Pikaday({
-    field: document.getElementById('startDate'),
-    format: 'DD.MM.YYYY',
-    i18n: azLocale,
-    firstDay: 1
-  });
+    new Pikaday({
+      field: document.getElementById('endDate'),
+      format: 'DD.MM.YYYY',
+      theme: 'light'
+    });
 
-  const endPicker = new Pikaday({
-    field: document.getElementById('endDate'),
-    format: 'DD.MM.YYYY',
-    i18n: azLocale,
-    firstDay: 1
-  });
-
-  // Təşəkkür bölməsi göstər
-  if (window.location.hash === "#thanks") {
-    document.getElementById("formSection").classList.add("hidden");
-    document.getElementById("thankyouSection").classList.remove("hidden");
-    setTimeout(() => {
-      window.location.href = "index.html";
-    }, 5000);
-  }
-</script>
-
+    // Redirect sonrası "Təşəkkür" mesajı göstər
+    if (window.location.hash === "#thanks") {
+      document.getElementById("formContainer").style.display = "none";
+      document.getElementById("thankYou").style.display = "block";
+    }
+  </script>
 </body>
 </html>
