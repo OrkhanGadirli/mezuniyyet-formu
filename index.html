@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <title>Məzuniyyət Formu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f9f9f9;
+    }
+    .hidden { display: none; }
+    .form-container, .thankyou-container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #333;
+    }
+    label {
+      font-weight: bold;
+    }
+    input[type="text"], input[type="date"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    input[type="submit"] {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    input[type="submit"]:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- FORM SECTION -->
+  <div class="form-container" id="formSection">
+    <h2>Məzuniyyət Məlumatları</h2>
+    <form id="leaveForm" action="https://formsubmit.io/send/orxan.qadirli@abc-telecom.az" method="POST">
+      <!-- Redirect to same page with anchor -->
+      <input type="hidden" name="_redirect" value="https://orkhangadirli.github.io/mezuniyyet-formu/index.html#thankyou">
+
+      <!-- Anti-spam -->
+      <input type="text" name="_honey" style="display:none">
+      <input type="hidden" name="_captcha" value="false">
+
+      <label>Ad Soyad:</label><br>
+      <input type="text" name="Ad Soyad" required><br>
+
+      <label>Başlama tarixi:</label><br>
+      <input type="date" name="Başlama tarixi" required><br>
+
+      <label>Bitmə tarixi:</label><br>
+      <input type="date" name="Bitmə tarixi" required><br>
+
+      <input type="submit" value="Göndər">
+    </form>
+  </div>
+
+  <!-- THANK YOU SECTION -->
+  <div class="thankyou-container hidden" id="thankyouSection">
+    <h2>Təşəkkür edirik!</h2>
+    <p>Məlumatınız qeydə alındı.</p>
+    <p>Sizinlə WhatsApp üzərindən tezliklə əlaqə saxlanılacaq.</p>
+    <p>5 saniyəyə form səhifəsinə geri dönəcəksiniz...</p>
+  </div>
+
+  <script>
+    // Check if URL has #thankyou
+    if (window.location.hash === "#thankyou") {
+      document.getElementById("formSection").classList.add("hidden");
+      document.getElementById("thankyouSection").classList.remove("hidden");
+
+      // Redirect back to form after 5 seconds
+      setTimeout(function() {
+        window.location.href = "index.html";
+      }, 5000);
+    }
+  </script>
+
+</body>
+</html>
