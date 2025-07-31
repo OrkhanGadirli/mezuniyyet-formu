@@ -89,31 +89,33 @@
 <!-- Pikaday JS -->
 <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
 <script>
+  const azLocale = {
+    previousMonth : 'Əvvəlki',
+    nextMonth     : 'Növbəti',
+    months        : ['Yanvar','Fevral','Mart','Aprel','May','İyun','İyul','Avqust','Sentyabr','Oktyabr','Noyabr','Dekabr'],
+    weekdays      : ['Bazar', 'B.e', 'Ç.a', 'Çərşənbə', 'C.a', 'Cümə', 'Şənbə'],
+    weekdaysShort : ['Bz', 'Be', 'Ça', 'Çə', 'Ca', 'Cü', 'Şə']
+  };
+
   const startPicker = new Pikaday({
     field: document.getElementById('startDate'),
     format: 'DD.MM.YYYY',
-    firstDay: 1,
-    i18n: {
-      previousMonth : 'Əvvəlki',
-      nextMonth     : 'Növbəti',
-      months        : ['Yanvar','Fevral','Mart','Aprel','May','İyun','İyul','Avqust','Sentyabr','Oktyabr','Noyabr','Dekabr'],
-      weekdays      : ['Bazar', 'B.e', 'Ç.a', 'Çərşənbə', 'C.a', 'Cümə', 'Şənbə'],
-      weekdaysShort : ['Bz', 'Be', 'Ça', 'Çə', 'Ca', 'Cü', 'Şə']
-    }
+    i18n: azLocale,
+    firstDay: 1
   });
 
   const endPicker = new Pikaday({
     field: document.getElementById('endDate'),
     format: 'DD.MM.YYYY',
-    firstDay: 1,
-    i18n: startPicker.config.i18n
+    i18n: azLocale,
+    firstDay: 1
   });
 
-  // Redirect thanks
+  // Təşəkkür bölməsi göstər
   if (window.location.hash === "#thanks") {
     document.getElementById("formSection").classList.add("hidden");
     document.getElementById("thankyouSection").classList.remove("hidden");
-    setTimeout(function () {
+    setTimeout(() => {
       window.location.href = "index.html";
     }, 5000);
   }
