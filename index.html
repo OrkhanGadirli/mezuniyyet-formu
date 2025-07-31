@@ -3,30 +3,121 @@
 <head>
   <meta charset="UTF-8">
   <title>Məzuniyyət Formu</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
+  <style>
+    body {
+      background-color: #f2f2f2;
+      font-family: "Segoe UI", sans-serif;
+      padding: 40px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+      padding: 30px;
+    }
+    h2 {
+      color: #ed1c24;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: 600;
+      color: #333;
+    }
+    input[type="text"],
+    input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+    input[type="submit"] {
+      background-color: #ed1c24;
+      color: #fff;
+      border: none;
+      margin-top: 30px;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover {
+      background-color: #c4141a;
+    }
+    .hidden { display: none; }
+    .thankyou-container {
+      text-align: center;
+      padding: 30px;
+    }
+    .thankyou-container h2 {
+      color: #ed1c24;
+    }
+  </style>
 </head>
-<body style="font-family: Arial; background: #f7f7f7; padding: 40px;">
+<body>
 
-  <div style="max-width: 500px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-    <h2>Məzuniyyət Məlumatları</h2>
+<div class="container" id="formSection">
+  <h2>Məzuniyyət Məlumatları</h2>
+  <form action="https://formsubmit.co/orkhangadirli@gmail.com" method="POST">
+    <input type="hidden" name="_redirect" value="https://orkhangadirli.github.io/mezuniyyet-formu/#thanks">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="text" name="_honey" style="display:none">
 
-    <form action="https://formsubmit.co/orkhangadirli@gmail.com" method="POST">
-      <!-- Təsdiq sonrası yönləndirmə -->
-      <input type="hidden" name="_redirect" value="https://orkhangadirli.github.io/mezuniyyet-formu/tesekkur.html">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="text" name="_honey" style="display:none">
+    <label>Ad Soyad:</label>
+    <input type="text" name="Ad Soyad" required>
 
-      <label>Ad Soyad:</label><br>
-      <input type="text" name="Ad Soyad" required style="width:100%; padding:10px; margin-bottom:15px;"><br>
+    <label>Başlama tarixi:</label>
+    <input type="text" id="startDate" name="Başlama tarixi" required readonly>
 
-      <label>Başlama tarixi:</label><br>
-      <input type="date" name="Başlama tarixi" required style="width:100%; padding:10px; margin-bottom:15px;"><br>
+    <label>Bitmə tarixi:</label>
+    <input type="text" id="endDate" name="Bitmə tarixi" required readonly>
 
-      <label>Bitmə tarixi:</label><br>
-      <input type="date" name="Bitmə tarixi" required style="width:100%; padding:10px; margin-bottom:15px;"><br>
+    <input type="submit" value="Göndər">
+  </form>
+</div>
 
-      <button type="submit" style="background:#28a745; color:white; padding:10px 20px; border:none; border-radius:5px;">Göndər</button>
-    </form>
-  </div>
+<!-- TƏŞƏKKÜR MESAJI -->
+<div class="thankyou-container hidden" id="thankyouSection">
+  <h2>✔ Təşəkkür edirik!</h2>
+  <p>Məlumatınız uğurla göndərildi.</p>
+  <p>Sizinlə WhatsApp üzərindən tezliklə əlaqə saxlanılacaq.</p>
+</div>
+
+<!-- Pikaday JS -->
+<script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+<script>
+  const startPicker = new Pikaday({
+    field: document.getElementById('startDate'),
+    format: 'DD.MM.YYYY',
+    firstDay: 1,
+    i18n: {
+      previousMonth : 'Əvvəlki',
+      nextMonth     : 'Növbəti',
+      months        : ['Yanvar','Fevral','Mart','Aprel','May','İyun','İyul','Avqust','Sentyabr','Oktyabr','Noyabr','Dekabr'],
+      weekdays      : ['Bazar', 'B.e', 'Ç.a', 'Çərşənbə', 'C.a', 'Cümə', 'Şənbə'],
+      weekdaysShort : ['Bz', 'Be', 'Ça', 'Çə', 'Ca', 'Cü', 'Şə']
+    }
+  });
+
+  const endPicker = new Pikaday({
+    field: document.getElementById('endDate'),
+    format: 'DD.MM.YYYY',
+    firstDay: 1,
+    i18n: startPicker.config.i18n
+  });
+
+  // Redirect thanks
+  if (window.location.hash === "#thanks") {
+    document.getElementById("formSection").classList.add("hidden");
+    document.getElementById("thankyouSection").classList.remove("hidden");
+    setTimeout(function () {
+      window.location.href = "index.html";
+    }, 5000);
+  }
+</script>
 
 </body>
 </html>
